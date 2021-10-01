@@ -1,11 +1,47 @@
 #include "Declear.h"
 
+struct cards
+{
+
+	int cardsType;
+	int cardNr;
+
+};
+
+
+
+
+
 int main() {
+	std::vector<int> Card_v;
+	
+	Card_v.push_back(cards());
+	
+
+	cards[0].
 	
 	
-	if(loginChecker() == true)
+	
 
 
+
+
+	std::vector<int> card = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+	std::random_device rd;
+	std::mt19937_64 g(rd());
+
+	std::shuffle(card.begin(), card.end(), g);
+
+	std::copy(card.begin(), card.end(), std::ostream_iterator<int>(std::cout, " "));
+	std::cout << "\n";
+
+
+
+	
+	if (loginChecker() == true)
+
+		std::cout << "Draw a card! :" << std::endl;
 	
 	
 	return 0;
@@ -41,7 +77,7 @@ bool loginChecker() {
 
 		if (playerLogin[1] == line1)
 		{
-			std::cout << "Welcome" << playerLogin[0] << std::endl;
+			std::cout << "Welcome " << playerLogin[0] << std::endl;
 			return { true };
 			
 		}
@@ -53,37 +89,17 @@ bool loginChecker() {
 	std::cout << "User not found...Try again" << std::endl;
 
 
-	/*while (std::getline(infile, line)) {
+	
 
-			std::string line1 = line.substr(9);
-
-			if (playerLogin[0] == line1)
-			{
-				std::cout << "Welcome" << playerLogin[0];
-				return { true };
-			}
-			 if (playerLogin[0] != line1) {
-
-				std::cout << "Incorrect login...Try again" << std::endl;
-			
-			}
-
-*/		
+	
 		}
 
-	//infile.close();
+	
 	
 
 	
 	return {};
 	}
-
-
-
-
-
-	
-
 
 
 void clearCin() {
