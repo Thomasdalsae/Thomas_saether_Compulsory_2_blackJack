@@ -9,6 +9,19 @@
 #include <algorithm>
 
 
+struct cards
+{
+	int cardsType{};
+	int cardNr{};
+	cards(int type, int number) {
+		cardsType = type;
+		cardNr = number;
+	}
+
+};
+
+
+int HouseAi(std::vector<cards> , std::vector<int>);
 
 
 bool loginChecker();

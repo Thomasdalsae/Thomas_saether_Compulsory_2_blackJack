@@ -1,123 +1,172 @@
 #include "Declear.h"
 
-struct cards
-{
-	int cardsType{};
-	int cardNr{};
-	cards(int type, int number) {
-		cardsType = type;
-		cardNr = number;
-	}
-
-};
-struct players
-{
-	int playerName;
-	int playerBank = 100;
 
 
-};
 
 
 
 
 int main() {
-	
+
 	char input{};
 	int playerChoice{};
+	int playerTurn{};
 
 	std::vector<cards> Card_v;
-	std::vector<int> playerSum(2,0);
+	std::vector<int> playerSum(2, 0);
+	std::vector<int> playerBank(2, 100);
 
 	for (size_t i = 1; i <= 4; i++)
 	{
-		
 
-	for (size_t j = 1; j <= 13; j++)
+
+		for (size_t j = 1; j <= 13; j++)
+		{
+			Card_v.push_back(cards(i, j));
+		}
+	}
+	/*while (playerBank[0] > 0);
 	{
-		Card_v.push_back(cards(i, j));
-	}
-	}
-	
+		std::cout << "Buy inn is 10$";
+		playerBank[0] -= 10;
+		playerBank[1] -= 10;*/
+
+
 	while (true)
 	{
-	std::random_device rd;
-	std::mt19937_64 g(rd());
 
-	std::shuffle(Card_v.begin(), Card_v.end(), g);
+		std::cout << playerTurn;
+		std::random_device rd;
+		std::mt19937_64 g(rd());
+
+		std::shuffle(Card_v.begin(), Card_v.end(), g);
 
 
-	std::cout << "Do you want to draw card? y/n  :" << std::endl;
-			std::cin >> input;
+		std::cout << "Do you want to draw card? y/n  :" << std::endl;
+		std::cin >> input;
 
-			if (toupper(input == 'y'))
+		if (toupper(input == 'y'))
+		{
+
+			for (size_t i = 0; i < 1; i++)
 			{
-				
-				for (size_t i = 0; i < 1; i++)
+				if (Card_v[i].cardNr == 1)
 				{
-					if (Card_v[i].cardNr == 1)
+					std::cout << "Do you want the card to count as 1 or 11 ?: 1/11";
+					std::cin >> playerChoice;
+
+					switch (toupper(playerChoice))
 					{
-						std::cout << "Do you want the card to count as 1 or 11 ?: 1/11";
-							std::cin >> playerChoice;
-
-							switch (toupper(playerChoice))
-							{
-								case 11:
-								{
-									std::cout << "Player choose 11" << std::endl;
-									std::cout << playerSum[0] << "+" << "11 = ";
-									playerSum[0] += 11;
-									std::cout << playerSum[0] << std::endl;
-									continue;
-								}
-								break;
-								case 1:
-								{
-									std::cout << "Player choose 1" << std::endl;
-									std::cout << playerSum[0] << "+" << "1 = ";
-									playerSum[0] += 1;
-									std::cout<< playerSum[0]  << std::endl;
-									continue;
-								}
-								break;
-							default:
-								break;
-							}
-
-
-					}
-					if (Card_v[i].cardNr >= 10)
+					case 11:
 					{
-
-						std::cout << "Face cards are 10" << std::endl;
-						std::cout << playerSum[0] << "+" << "10 = ";
-						playerSum[0] += 10;
-
+						std::cout << "Player choose 11" << std::endl;
+						std::cout << playerSum[playerTurn] << "+" << "11 = ";
+						playerSum[playerTurn] += 11;
+						std::cout << playerSum[playerTurn] << std::endl;
+						continue;
 					}
-					else if (Card_v[i].cardNr < 10 && Card_v[i].cardNr > 1)
+					break;
+					case 1:
 					{
-						//Hvilken type å nr
-						//std::cout << Card_v[i].cardsType << " " ;
-						//std::cout << Card_v[i].cardNr << std::endl;
-						
-						std::cout << playerSum[0] << "+" << Card_v[i].cardNr << " = ";
-						playerSum[0] += Card_v[i].cardNr;
+						std::cout << "Player choose 1" << std::endl;
+						std::cout << playerSum[playerTurn] << "+" << "1 = ";
+						playerSum[playerTurn] += 1;
+						std::cout << playerSum[playerTurn] << std::endl;
+						continue;
 					}
-					
-					std::cout << playerSum[0] << std::endl;
+					break;
+					default:
+						break;
+					}
+
+
 				}
-			
+				if (Card_v[i].cardNr >= 10)
+				{
+
+					std::cout << "Face cards are 10" << std::endl;
+					std::cout << playerSum[playerTurn] << "+" << "10 = ";
+					playerSum[playerTurn] += 10;
+
+				}
+				else if (Card_v[i].cardNr < 10 && Card_v[i].cardNr > 1)
+				{
+					//Hvilken type å nr
+					//std::cout << Card_v[i].cardsType << " " ;
+					//std::cout << Card_v[i].cardNr << std::endl;
+
+					std::cout << playerSum[playerTurn] << "+" << Card_v[i].cardNr << " = ";
+					playerSum[playerTurn] += Card_v[i].cardNr;
+				}
+
+				std::cout << playerSum[playerTurn] << std::endl;
 			}
-			else if (toupper(input == 'n'))
+
+
+			if (playerSum[playerTurn] > 21)
 			{
-				return false;
+				std::cout << "you lose you'll get nothing, good day sir/madam" << std::endl;
+				std::cout << "Do you want to play another round of blackjack?";
+
 			}
+		}
 
+		else if (toupper(input == 'n'))
+		{
 
+			std::cout << "Player one holds" << playerSum[playerTurn] << std::endl;
 
+			clearCin();
 
+			playerTurn++;
+			
+			
+			HouseAi(Card_v, playerSum);
+			
+		}
+
+		if (playerTurn >= 1)
+		{
+			break;
+		}
+	
+	}
+
+	if (playerSum[1] > 21)
+	{
+		std::cout << "The house went to high" << std::endl;
+		return playerSum[1];
 
 	}
+	clearCin();
+	std::cout << "How much do you want to bet ? the house will match you.";
+	std::cin >> playerChoice;
+
+	playerBank[0] -= playerChoice;
+	playerBank[1] -= playerChoice;
+
+	int Pool = playerChoice * 2;
+
+	std::cout << "The current pool is on:" << Pool << std::endl;
+
+
+	if (playerSum[playerTurn] > playerSum[1])
+	{
+		std::cout << "congratulations player, you won against the house :" << Pool;
+	}
+	else
+	{
+		std::cout << "House wins :" << Pool << std::endl;
+	}
+	
+	
+	if (loginChecker() == true)
+
+		std::cout << "Draw a card! :" << std::endl;
+
+
+	return 0;
+}
 
 
 
@@ -133,13 +182,62 @@ int main() {
 
 
 	
-	if (loginChecker() == true)
+	
 
-		std::cout << "Draw a card! :" << std::endl;
+int HouseAi(std::vector<cards> Card_v, std::vector<int> playerSum) {
+
+
+	while (playerSum[1] < playerSum[0])
+	{
+
+		for (size_t i = 0; i < 1; i++)
+		{
+			if (Card_v[i].cardNr == 1)
+			{
+				if (playerSum[i] < 11)
+				{
+					std::cout << playerSum[1] << "+" << "11 = ";
+					playerSum[1] += 11;
+					std::cout << playerSum[1] << std::endl;
+					continue;
+				}
+				else
+				{
+					std::cout << playerSum[1] << "+" << "1 = ";
+					playerSum[1] += 1;
+					std::cout << playerSum[1] << std::endl;
+
+				}
+			}
+
+			if (Card_v[i].cardNr >= 10)
+			{
+
+				std::cout << "Face cards are 10" << std::endl;
+				std::cout << playerSum[1] << "+" << "10 = ";
+				playerSum[1] += 10;
+
+			}
+			else if (Card_v[i].cardNr < 10 && Card_v[i].cardNr > 1)
+			{
+				std::cout << playerSum[1] << "+" << Card_v[i].cardNr << " = ";
+				playerSum[1] += Card_v[i].cardNr;
+			}
+
+			std::cout << playerSum[1] << std::endl;
+		}
+		
+		}
+		std::cout << "House holds" << playerSum[1] << std::endl;
+
+		
+		return playerSum[1];
+	}
+
+
 	
-	
-	return 0;
-}
+
+
 
 
 bool loginChecker() {
