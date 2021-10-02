@@ -21,7 +21,7 @@ struct cards
 };
 
 
-int HouseAi(std::vector<cards> , std::vector<int>);
+int HouseAi(std::vector<cards> , std::vector<int>&, int drawTracker);
 
 
 bool loginChecker();
