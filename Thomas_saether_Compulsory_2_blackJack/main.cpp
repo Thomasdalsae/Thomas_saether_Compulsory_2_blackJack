@@ -2,39 +2,120 @@
 
 struct cards
 {
+	int cardsType{};
+	int cardNr{};
+	cards(int type, int number) {
+		cardsType = type;
+		cardNr = number;
+	}
 
-	int cardsType;
-	int cardNr;
+};
+struct players
+{
+	int playerName;
+	int playerBank = 100;
+
 
 };
 
 
 
 
-
 int main() {
-	std::vector<int> Card_v;
 	
-	Card_v.push_back(cards());
+	char input{};
+	int playerChoice{};
+
+	std::vector<cards> Card_v;
+	std::vector<int> playerSum(2,0);
+
+	for (size_t i = 1; i <= 4; i++)
+	{
+		
+
+	for (size_t j = 1; j <= 13; j++)
+	{
+		Card_v.push_back(cards(i, j));
+	}
+	}
 	
-
-	cards[0].
-	
-	
-	
-
-
-
-
-	std::vector<int> card = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-
+	while (true)
+	{
 	std::random_device rd;
 	std::mt19937_64 g(rd());
 
-	std::shuffle(card.begin(), card.end(), g);
+	std::shuffle(Card_v.begin(), Card_v.end(), g);
 
-	std::copy(card.begin(), card.end(), std::ostream_iterator<int>(std::cout, " "));
-	std::cout << "\n";
+
+	std::cout << "Do you want to draw card? y/n" << std::endl;
+			std::cin >> input;
+
+			if (toupper(input == 'y'))
+			{
+				
+				for (size_t i = 0; i < 1; i++)
+				{
+					if (Card_v[i].cardNr == 1)
+					{
+						std::cout << "Do you want the card to count as 1 or 11 ?: 1/11";
+							std::cin >> playerChoice;
+
+							switch (toupper(playerChoice))
+							{
+								case '11':
+								{
+									playerSum[0] += 11;
+								}
+								break;
+								case '1':
+								{
+									playerSum[0] += 1;
+								}
+								break;
+							default:
+								break;
+							}
+
+
+					}
+					if (Card_v[i].cardNr > 10)
+					{
+						playerSum[0] += 10;
+
+					}
+					else if (Card_v[i].cardNr < 10 && Card_v[i].cardNr > 1)
+					{
+						std::cout << Card_v[i].cardsType << " ";
+						std::cout << Card_v[i].cardNr << std::endl;
+						playerSum[0] += Card_v[i].cardNr;
+					}
+
+					std::cout << playerSum[0];
+					
+				}
+			
+			}
+			else if (toupper(input == 'n'))
+			{
+				return false;
+			}
+
+
+
+
+
+	}
+
+
+
+
+	
+	
+	
+
+
+	/*std::copy(Card_v.begin(), Card_v.end(), / std::ostream_iterator<int>(std::cout, " "));
+	std::cout << "\n";*/
 
 
 

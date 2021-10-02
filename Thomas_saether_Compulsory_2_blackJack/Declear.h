@@ -6,7 +6,7 @@
 #include <vector>
 #include <fstream>
 #include <random> 
-
+#include <algorithm>
 
 
 
