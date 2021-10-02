@@ -47,7 +47,7 @@ int main() {
 	std::shuffle(Card_v.begin(), Card_v.end(), g);
 
 
-	std::cout << "Do you want to draw card? y/n" << std::endl;
+	std::cout << "Do you want to draw card? y/n  :" << std::endl;
 			std::cin >> input;
 
 			if (toupper(input == 'y'))
@@ -62,14 +62,22 @@ int main() {
 
 							switch (toupper(playerChoice))
 							{
-								case '11':
+								case 11:
 								{
+									std::cout << "Player choose 11" << std::endl;
+									std::cout << playerSum[0] << "+" << "11 = ";
 									playerSum[0] += 11;
+									std::cout << playerSum[0] << std::endl;
+									continue;
 								}
 								break;
-								case '1':
+								case 1:
 								{
+									std::cout << "Player choose 1" << std::endl;
+									std::cout << playerSum[0] << "+" << "1 = ";
 									playerSum[0] += 1;
+									std::cout<< playerSum[0]  << std::endl;
+									continue;
 								}
 								break;
 							default:
@@ -78,20 +86,25 @@ int main() {
 
 
 					}
-					if (Card_v[i].cardNr > 10)
+					if (Card_v[i].cardNr >= 10)
 					{
+
+						std::cout << "Face cards are 10" << std::endl;
+						std::cout << playerSum[0] << "+" << "10 = ";
 						playerSum[0] += 10;
 
 					}
 					else if (Card_v[i].cardNr < 10 && Card_v[i].cardNr > 1)
 					{
-						std::cout << Card_v[i].cardsType << " ";
-						std::cout << Card_v[i].cardNr << std::endl;
+						//Hvilken type å nr
+						//std::cout << Card_v[i].cardsType << " " ;
+						//std::cout << Card_v[i].cardNr << std::endl;
+						
+						std::cout << playerSum[0] << "+" << Card_v[i].cardNr << " = ";
 						playerSum[0] += Card_v[i].cardNr;
 					}
-
-					std::cout << playerSum[0];
 					
+					std::cout << playerSum[0] << std::endl;
 				}
 			
 			}
