@@ -9,6 +9,8 @@
 #include <algorithm>
 
 
+
+bool blackJack();
 struct cards
 {
 	int cardsType{};
@@ -20,7 +22,7 @@ struct cards
 
 };
 
-
+std::vector<int> playerBank(2, 100);
 int HouseAi(std::vector<cards> , std::vector<int>&, int drawTracker);
 
 
