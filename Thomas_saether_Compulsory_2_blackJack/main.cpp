@@ -8,7 +8,8 @@
 
 bool main() {
 	std::vector<int> playerBank(2, 100);
-	
+	if (loginChecker() == true)
+
 	
 	while (true)
 	{
@@ -55,26 +56,24 @@ bool blackJack(){
 
 	
 
+	std::cout << "Buy inn is 10$, Do you want to continue?" << std::endl;
+	std::cin >> input;
 
-		std::cout << "Buy inn is 10$, Do you want to continue?" << std::endl;
-		std::cin >> input;
-
-		switch (toupper(input))
-		{
-		case 'y':
-		{
-			continue;
-		}
+	switch (toupper(input))
+	{
+	case 'y':
+	{
+		continue;
+	}
+	break;
+	case 'n':
+	{
+		exit(0);
+	}
+	break;
+	default:
 		break;
-		case 'n':
-		{
-			exit(0);
-		}
-		break;
-		default:
-			break;
-		}
-
+	}
 
 		playerBank[0] -= 10;
 		playerBank[1] -= 10;
@@ -84,15 +83,12 @@ bool blackJack(){
 		
 		std::random_device rd;
 		std::mt19937_64 g(rd());
+
+
 		while (true)
 		{
-
-			
-
 		std::shuffle(Card_v.begin(), Card_v.end(), g);
 
-
-		
 		std::cout << "Do you want to draw card? y/n  :" << std::endl;
 		std::cin >> input;
 		system("cls");
@@ -157,8 +153,8 @@ bool blackJack(){
 				if (playerSum[0] > 21)
 				{
 					system("cls");
-					std::cout << "you lose you'll get nothing, good day sir/madam" << std::endl;
-					std::cout << "Do you want to play another round of blackjack?";
+					std::cout << "Player went to high...House wins:" << std::endl;
+					playerBank[1] += 20;
 					return false;
 				}
 
@@ -168,20 +164,32 @@ bool blackJack(){
 
 		std::cout << "Player one holds" << playerSum[0] << std::endl;
 
+		clearCin();
+
+		std::cout << "How much do you want to bet ? the house will match you.";
+		std::cin >> playerChoice;
+		while (true)
+		{
+
+			if (playerChoice > playerBank[0] && playerChoice > playerBank[1])
+			{
+				std::cout << "You can't bet more than what you or the house have:";
+				std::cin >> playerChoice;
+
+			}
+			else
+			{
+				break;
+			}
+
+		}
+		system("cls");
+		std::cout << "Player betted:" << playerChoice;
 		HouseAi(Card_v, playerSum, drawTracker);
 		break;
 		}
 		}
-
-
-
-
-		if (playerSum[1] > 21)
-		{
-			std::cout << "house went to high... player wins";
-			playerBank[0] += 20;
-			return false;
-		}
+		
 		if (playerSum[1] == playerSum[0])
 		{
 			system("cls");
@@ -194,19 +202,6 @@ bool blackJack(){
 		if (true)
 		{
 
-	clearCin();
-	
-	std::cout << "How much do you want to bet ? the house will match you.";
-	std::cin >> playerChoice;
-	while (playerChoice > playerBank[0] || playerChoice > playerBank[1])
-	{
-		std::cout << "You can't bet more than what you or the house have:";
-		std::cin >> playerChoice;
-	
-	}
-	
-
-
 	playerBank[0] -= playerChoice;
 	playerBank[1] -= playerChoice;
 
@@ -214,11 +209,18 @@ bool blackJack(){
 
 	std::cout << "The current pool is on:" << Pool << std::endl;
 
+	if (playerSum[1] > 21)
+	{
+		std::cout << "house went to high... player wins" << std::endl;
+		playerBank[0] += Pool;
+		return false;
+		
+	}
 
 	if (playerSum[playerTurn] > playerSum[1])
 	{
 		playerBank[0] += Pool;
-		std::cout << "congratulations player, you won against the house :" << Pool;
+		std::cout << "congratulations player, you won against the house :" << Pool << std::endl;
 		
 	}
 	else
@@ -227,8 +229,7 @@ bool blackJack(){
 		std::cout << "House wins :" << Pool << std::endl;
 		
 	}
-	std::cout << playerBank[0] << std::endl;
-	std::cout << playerBank[1] << std::endl;
+
 	
 
 
@@ -237,10 +238,8 @@ bool blackJack(){
 		
 
 	}
-	/*if (loginChecker() == true)
 
-		std::cout << "Draw a card! :" << std::endl;
-*/
+
 
 	
 	
