@@ -8,7 +8,7 @@
 #include <random> 
 #include <algorithm>
 //for loginchecker, want to uset the login profiles name as player.
-std::vector<std::string>playerLogin{};
+std::vector<std::string>playerLogin;
 //made a struct to hold all the information the cards need, there are 4 different types of cards with 13 cards each. 
 struct cards
 {
